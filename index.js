@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = 3001;
+const port = process.env.PORT || 8080;
 
 app.use(
 	cors({
@@ -22,7 +22,9 @@ s3 = new AWS.S3({apiVersion: '2006-03-01'});
 // 	}
 // });
 
-app.listen(process.env.PORT || port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => {
+	console.log('Express server listening on port', port)
+});
 
 app.get('/', (req, res) => res.send('Working'));
 
