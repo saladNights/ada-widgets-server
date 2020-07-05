@@ -3,13 +3,7 @@ const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 8000;
 
-app.use(
-	cors({
-		credentials: true,
-		origin: true
-	})
-);
-app.options('*', cors());
+app.use(cors());
 
 const AWS = require('aws-sdk');
 s3 = new AWS.S3({apiVersion: '2006-03-01'});
