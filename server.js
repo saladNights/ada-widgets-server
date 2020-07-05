@@ -34,11 +34,11 @@ app.get('/presigned-url-put-object', (req, res) => {
 });
 
 app.get('/presigned-url-get-object', (req, res) => {
-	const { Key } =  req.query;
+	const { s3Key } =  req.query;
 
 	const url = s3.getSignedUrl('getObject', {
 		Bucket: 'ada-file-upload-bucket',
-		Key,
+		VersionId: s3Key,
 	});
 
 	return res.send({
