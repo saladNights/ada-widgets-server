@@ -10,12 +10,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "aws-sdk": "^2.709.0"
-  },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "aws-sdk": "^2.709.0"
   },
   "engines": {
     "node": "14.4.0"
