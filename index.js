@@ -22,7 +22,9 @@ s3 = new AWS.S3({apiVersion: '2006-03-01'});
 // 	}
 // });
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(process.env.PORT || port, () => console.log(`Example app listening at http://localhost:${port}`));
+
+app.get('/', (req, res) => res.send('Working'));
 
 app.get('/presigned-url-put-object', (req, res) => {
 	const { Key, ContentType } =  req.query;
