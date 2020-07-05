@@ -28,7 +28,7 @@ conf = {
 		// origin handler
 		origin: function (origin, cb) {
 			// setup a white list
-			let wl = ['http://localhost:3000/', 'https://saladnights.github.io'];
+			let wl = ['http://localhost:3000', 'https://saladnights.github.io'];
 			if (wl.indexOf(origin) !== -1) {
 				cb(null, true);
 			} else {
