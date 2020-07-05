@@ -8,14 +8,6 @@ app.use(cors());
 const AWS = require('aws-sdk');
 s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
-// s3.listBuckets(function(err, data) {
-// 	if (err) {
-// 		console.log("Error", err);
-// 	} else {
-// 		console.log("Success", data.Buckets);
-// 	}
-// });
-
 app.get('/', (req, res) => res.send('Working'));
 
 app.get('/presigned-url-put-object', (req, res) => {
