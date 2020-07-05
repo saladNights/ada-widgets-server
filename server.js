@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8000;
 
 app.use(
 	cors({
@@ -21,10 +21,6 @@ s3 = new AWS.S3({apiVersion: '2006-03-01'});
 // 		console.log("Success", data.Buckets);
 // 	}
 // });
-
-app.listen(port, () => {
-	console.log('Express server listening on port', port)
-});
 
 app.get('/', (req, res) => res.send('Working'));
 
@@ -54,4 +50,8 @@ app.get('/presigned-url-get-object', (req, res) => {
 	return res.send({
 		url
 	});
+});
+
+app.listen(port, () => {
+	console.log('Express server listening on port', port)
 });
