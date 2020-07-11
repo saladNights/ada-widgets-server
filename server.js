@@ -31,12 +31,17 @@ app.get('/presigned-url-put-object', (req, res) => {
 	});
 });
 
-// TODO this method needs credentials data from client
 app.get('/presigned-url-get-object', (req, res) => {
-	const { Key, s3Key } =  req.query;
+	const { BucketName, Key, s3Key } =  req.query;
+
+	const s3 = new AWS.S3({
+		apiVersion: '2006-03-01',
+		accessKeyId: req.headers['X-S3-P-Key'],
+		secretAccessKey: req.headers['X-S3-S-Key']
+	});
 
 	const url = s3.getSignedUrl('getObject', {
-		Bucket: 'ada-file-upload-bucket',
+		Bucket: BucketName,
 		Key,
 		VersionId: s3Key,
 	});
