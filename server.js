@@ -1,20 +1,26 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
+// TODO setup CORS for specific resources
 app.use(cors());
 
 const AWS = require('aws-sdk');
-s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 app.get('/', (req, res) => res.send('Working'));
 
 app.get('/presigned-url-put-object', (req, res) => {
-	const { Key, ContentType } =  req.query;
+	const { BucketName, Key, ContentType } =  req.query;
+
+	const s3 = new AWS.S3({
+		apiVersion: '2006-03-01',
+		accessKeyId: req.headers['X-S3-P-Key'],
+		secretAccessKey: req.headers['X-S3-S-Key']
+	});
 
 	const url = s3.getSignedUrl('putObject', {
-		Bucket: 'ada-file-upload-bucket',
+		Bucket: BucketName,
 		Expires: 60 * 5,
 		Key,
 		ContentType,
@@ -25,6 +31,7 @@ app.get('/presigned-url-put-object', (req, res) => {
 	});
 });
 
+// TODO this method needs credentials data from client
 app.get('/presigned-url-get-object', (req, res) => {
 	const { Key, s3Key } =  req.query;
 
