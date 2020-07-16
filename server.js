@@ -11,7 +11,7 @@ const AWS = require('aws-sdk');
 app.get('/', (req, res) => res.send('Working'));
 
 app.get('/presigned-url-put-object', (req, res) => {
-	const { BucketName, Key, ContentType } =  req.query;
+	const { BucketName, Key, ContentType, s3UrlExpire } =  req.query;
 
 	const s3 = new AWS.S3({
 		apiVersion: '2006-03-01',
@@ -21,7 +21,7 @@ app.get('/presigned-url-put-object', (req, res) => {
 
 	const url = s3.getSignedUrl('putObject', {
 		Bucket: BucketName,
-		Expires: 60 * 5,
+		Expires: s3UrlExpire,
 		Key,
 		ContentType,
 	});
@@ -32,7 +32,7 @@ app.get('/presigned-url-put-object', (req, res) => {
 });
 
 app.get('/presigned-url-get-object', (req, res) => {
-	const { BucketName, Key, s3Key } =  req.query;
+	const { BucketName, Key, s3Key, s3UrlExpire } =  req.query;
 
 	const s3 = new AWS.S3({
 		apiVersion: '2006-03-01',
@@ -42,6 +42,7 @@ app.get('/presigned-url-get-object', (req, res) => {
 
 	const url = s3.getSignedUrl('getObject', {
 		Bucket: BucketName,
+		Expires: s3UrlExpire,
 		Key,
 		VersionId: s3Key,
 	});
