@@ -21,7 +21,7 @@ app.get('/presigned-url-put-object', (req, res) => {
 
 	const url = s3.getSignedUrl('putObject', {
 		Bucket: BucketName,
-		Expires: s3UrlExpire,
+		Expires: +s3UrlExpire,
 		Key,
 		ContentType,
 	});
@@ -42,7 +42,7 @@ app.get('/presigned-url-get-object', (req, res) => {
 
 	const url = s3.getSignedUrl('getObject', {
 		Bucket: BucketName,
-		Expires: s3UrlExpire,
+		Expires: +s3UrlExpire,
 		Key,
 		VersionId: s3Key,
 	});
